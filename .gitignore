@@ -207,3 +207,18 @@ marimo/_lsp/
 __marimo__/
 
 .data/
+
+
+# Model files and directories
+hate_speech_model/
+results/
+logs/
+*.pt
+*.pth
+*.bin
+*.onnx
+*.model
+model_outputs/
+
+# Weights & Biases
+wandb/
