@@ -61,16 +61,16 @@ if __name__ == "__main__":
 
     # Process each dataset
     print("Processing training data...")
-    train_data['tweet'] = train_data['tweet'].apply(lambda x: regex_clean(x))
-    train_data['tweet'] = train_data['tweet'].apply(lambda x: anonymize_with_ner(ner_pipeline, x))
+    train_data['tweet'] = train_data['tweet'].progress_apply(lambda x: regex_clean(x))
+    train_data['tweet'] = train_data['tweet'].progress_apply(lambda x: anonymize_with_ner(ner_pipeline, x))
 
     print("Processing validation data...")
-    val_data['tweet'] = val_data['tweet'].apply(lambda x: regex_clean(x))
-    val_data['tweet'] = val_data['tweet'].apply(lambda x: anonymize_with_ner(ner_pipeline, x))
+    val_data['tweet'] = val_data['tweet'].progress_apply(lambda x: regex_clean(x))
+    val_data['tweet'] = val_data['tweet'].progress_apply(lambda x: anonymize_with_ner(ner_pipeline, x))
 
     print("Processing test data...")
-    test_data['tweet'] = test_data['tweet'].apply(lambda x: regex_clean(x))
-    test_data['tweet'] = test_data['tweet'].apply(lambda x: anonymize_with_ner(ner_pipeline, x))
+    test_data['tweet'] = test_data['tweet'].progress_apply(lambda x: regex_clean(x))
+    test_data['tweet'] = test_data['tweet'].progress_apply(lambda x: anonymize_with_ner(ner_pipeline, x))
 
     # Save processed datasets
     train_data.to_csv("data/processed_train_data.csv", index=False)
