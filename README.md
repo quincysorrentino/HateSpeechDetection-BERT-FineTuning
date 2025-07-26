@@ -1,42 +1,64 @@
-# Hate Speech Detection Using Bert (ToXicBERT)
+# Hate Speech Detection Using Bert (ToXiBERT)
 
 ## Model Description
-ToxiBERT [LINK TO HUGGINFACEDATASET] is a fine-tuned RoBERTa fine tuned model specifically designed to detect and classify hate speech, offensive language, and normal content on the X (formerly Twitter) platform.
+[ToXiBERT](https://huggingface.co/QuincySorrentino/toXibert/blob/main/README.md) is a fine-tuned RoBERTa fine tuned model specifically designed to detect and classify hate speech, offensive language, and normal content on the X (formerly Twitter) platform.
 
 ## Key Technical Achievements
-- Collecting data from various sources and compiling a custom dataset for training 
-- Fine tuning existing model on cloud computing resources 
-- Evaluating model efficacy 
+- Advanced Transfer Learning: Fine-tuned [BERTweet](https://huggingface.co/docs/transformers/en/model_doc/bertweet) (RoBERTa) architecture for domain-specific hate speech detection
+- Comprehensive Data Pipeline: Multi-source data collection and compilation
+- Privacy-Preserving Preprocessing: NER-based anonymization and advanced text normalization workflows
+- Threshold Optimization Framework: Class-specific threshold tuning achieving 79.2% accuracy with balanced precision-recall
+
 
 ## Core Technologies
+- Deep Learning Framework: PyTorch with CUDA acceleration on Google Colab
+- NLP Library: Hugging Face Transformers ecosystem with custom tokenization
+- Base Model: BERTweet (RoBERTa-base optimized for Twitter text)
+- Data Processing: Pandas, NumPy, scikit-learn with custom preprocessing pipelines
 
+## Technical Implementations
+- Multi-Source Data Collection Pipeline
+  - Automated dataset aggregation from Hugging Face Hub
+  - Custom data validation and quality assurance workflows
+  - Stratified sampling for balanced class representation
+  - Data versioning and reproducible dataset compilation
 
-## Model Architecture
-- Base Model: BERTweet (RoBERTa) [https://github.com/VinAIResearch/BERTweet]
-- Fine-tuning: Multi-class classification
-- Input: Self compiled dataset from X
-- Output: Three-class classification
-  - Hate Speech
-  - Offensive Content
-  - Normal Content
+- Advanced anonymization and normalization pipeline
+  - Named Entity Recognition (NER) for automatic anonymization
+  - Twitter-specific preprocessing (mentions, hashtags, URLs)
+  - Emoji standardization and handling
+  - Custom tokenization for social media text
 
-## Key Features 
-- Data collection pipeline pulling various datasets from Huggingface
+- Advanced Transfer Learning Strategy
+  - Domain adaptation from general RoBERTa to Twitter-specific BERTweet
+  - Layer-wise learning rate scheduling for optimal fine-tuning
+  - Gradient accumulation for effective large batch training
+  - Early stopping with validation monitoring
 
-- Data preprocessing workflow
-  - Anonymization using NER 
-  - Cleaning pretokenization from compiled datasets
-  - URL handling 
-  - Emoji handling
+- Hyperparameter Optimization Framework
+  - Automated hyperparameter search with Weights & Biases (wandb) experiment tracking
+  - Multi-objective optimization targeting macro F1-score for balanced class performance
+  - Dynamic parameter space exploration including learning rates, batch sizes, epochs, weight decay
+  - Best model selection with automatic checkpoint saving and restoration
 
-- Model training (Google Colab)
-  - Hyperparameter tuning 
-- Model Evaluation
-  - Threshold analysis and optimization 
-
-- Interactive CLI inference tool
+- Threshold Optimization
+  - Class-specific threshold optimization using F1-score maximization
+  - Statistical significance testing for threshold selection
+  - Cross-validation framework for robust threshold estimation
+  -Uncertainty quantification for low-confidence predictions
 
 ## Model Performance
+Overall Accuracy: 79.2% with balanced class performance
+
+Weighted F1-Score: 79.6% accounting for class imbalance
+
+Hate Speech Detection: 70.8% F1 with 82% recall (prioritizing detection)
+Offensive Content: 82.0% F1 with high precision-recall balance
+Normal Content: 81.5% F1 with robust classification accuracy
+
+Thresholding Analysis
+
+```
 Optimal class-specific thresholds:
   hatespeech: 0.560
   offensive: 0.420
@@ -52,6 +74,7 @@ Results with class-specific thresholds:
     accuracy                          0.792      7967
    macro avg      0.773     0.801     0.781      7967
 weighted avg      0.810     0.792     0.796      7967
+```
 
-## 
-
+## Future Enhancements
+- Multi-language support with cross-lingual transfer learning
