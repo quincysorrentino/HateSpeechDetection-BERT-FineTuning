@@ -59,21 +59,24 @@ Normal Content: 81.5% F1 with robust classification accuracy
 Thresholding Analysis
 
 ```
-Optimal class-specific thresholds:
-  hatespeech: 0.560
-  offensive: 0.420
-  normal: 0.320
+### Optimal Class-Specific Thresholds
 
-Results with class-specific thresholds:
-              precision    recall  f1-score   support
+| Class      | Threshold |
+|------------|-----------|
+| hatespeech | 0.560     |
+| offensive  | 0.420     |
+| normal     | 0.320     |
 
-  hatespeech      0.624     0.818     0.708      1625
-   offensive      0.892     0.759     0.820      3868
-      normal      0.803     0.827     0.815      2474
+### Results with Class-Specific Thresholds
 
-    accuracy                          0.792      7967
-   macro avg      0.773     0.801     0.781      7967
-weighted avg      0.810     0.792     0.796      7967
+| Class       | Precision | Recall | F1-Score | Support |
+|-------------|-----------|--------|----------|---------|
+| hatespeech  | 0.624     | 0.818  | 0.708    | 1625    |
+| offensive   | 0.892     | 0.759  | 0.820    | 3868    |
+| normal      | 0.803     | 0.827  | 0.815    | 2474    |
+| **Accuracy**     |           |        | **0.792**    | **7967**   |
+| **Macro Avg**    | 0.773     | 0.801  | 0.781    | 7967    |
+| **Weighted Avg** | 0.810     | 0.792  | 0.796    | 7967    |
 ```
 
 ## Future Enhancements
