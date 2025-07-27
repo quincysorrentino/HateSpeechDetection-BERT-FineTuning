@@ -88,5 +88,7 @@ Thresholding Analysis
 
 ```
 
+![Confusion Matrix](README_Assets/Confusion%20Matrix.png)
+
 ## Future Enhancements
 - Multi-language support with cross-lingual transfer learning
