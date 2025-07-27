@@ -10,7 +10,6 @@ import json
 from pathlib import Path
 from huggingface_hub import HfApi, create_repo, upload_folder
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-import torch
 
 # Configuration
 MODEL_NAME = "toXibert"

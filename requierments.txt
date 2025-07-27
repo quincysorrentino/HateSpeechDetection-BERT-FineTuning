@@ -1,5 +1,14 @@
+accelerate wandb
 datasets
-pandas
-sklearn
 emojis
+evaluate
+huggingface_hub
+imbalanced-learn
+optuna
+pandas
+pathlib
+re
+scikit-learn
+torch
+tqdm
 transformers
