@@ -57,26 +57,35 @@ Offensive Content: 82.0% F1 with high precision-recall balance
 Normal Content: 81.5% F1 with robust classification accuracy
 
 Thresholding Analysis
-
 ```
-### Optimal Class-Specific Thresholds
+# Classification Model Performance Results
 
-| Class      | Threshold |
-|------------|-----------|
-| hatespeech | 0.560     |
-| offensive  | 0.420     |
-| normal     | 0.320     |
+## Optimal Class-Specific Thresholds
 
-### Results with Class-Specific Thresholds
+| **Class**      | **Threshold** |
+|----------------|:-------------:|
+| Hate Speech    |     0.560     |
+| Offensive      |     0.420     |
+| Normal         |     0.320     |
 
-| Class       | Precision | Recall | F1-Score | Support |
-|-------------|-----------|--------|----------|---------|
-| hatespeech  | 0.624     | 0.818  | 0.708    | 1625    |
-| offensive   | 0.892     | 0.759  | 0.820    | 3868    |
-| normal      | 0.803     | 0.827  | 0.815    | 2474    |
-| **Accuracy**     |           |        | **0.792**    | **7967**   |
-| **Macro Avg**    | 0.773     | 0.801  | 0.781    | 7967    |
-| **Weighted Avg** | 0.810     | 0.792  | 0.796    | 7967    |
+---
+
+## Performance Metrics with Class-Specific Thresholds
+
+| **Class**        | **Precision** | **Recall** | **F1-Score** | **Support** |
+|------------------|:-------------:|:----------:|:------------:|:-----------:|
+| **Hate Speech**  |     0.624     |   0.818    |    0.708     |    1,625    |
+| **Offensive**    |     0.892     |   0.759    |    0.820     |    3,868    |
+| **Normal**       |     0.803     |   0.827    |    0.815     |    2,474    |
+
+### Overall Performance Summary
+
+| **Metric**           | **Score** | **Support** |
+|----------------------|:---------:|:-----------:|
+| **Overall Accuracy** | **0.792** |  **7,967**  |
+| **Macro Average**    |   0.773   |    7,967    |
+| **Weighted Average** |   0.810   |    7,967    |
+
 ```
 
 ## Future Enhancements
