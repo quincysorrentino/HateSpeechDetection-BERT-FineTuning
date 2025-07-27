@@ -2,62 +2,64 @@ from datasets import load_dataset
 import pandas as pd 
 from sklearn.model_selection import train_test_split
 
-def pull_data():
+def pull_data() -> pd.DataFrame:
     # ========== ALL HATEXPLAIN LOGIC ==========
     # pull hatexplain
     hate_explain = load_dataset("Abhi0072/HateXplain")
     hate_explain = hate_explain['train'].to_pandas()
 
-    
+
     # need to remap all the labels so that they are integers 
     label_mapping = {
-    "normal": 2,
     "hatespeech": 0,
-    "offensive": 1
-
+    "offensive": 1,
+    "normal": 2
     }
 
     # Apply the mapping to the label column
     hate_explain['label'] = hate_explain['label'].apply(lambda label: label_mapping.get(label))
 
+
     # ========== ALL DAVIDSON LOGIC ==========
-    # pull davidson
+    # Pull davidson
     davidson = load_dataset("tdavidson/hate_speech_offensive")
     davidson_df = davidson['train'].to_pandas()
 
-    # rename and drop unneeded columns
+    # Rename and drop unneeded columns
     davidson_df = davidson_df.rename(columns={'class': 'label', 'tweet': 'text'})
     davidson_df = davidson_df.drop(columns=["neither_count", "offensive_language_count", "hate_speech_count","count"])
 
+
     # ========== ALL GAB LOGIC ==========
     gab = load_dataset("juliadollis/The_Gab_Hate_Corpus_ghc_train_original")
-    # convert to dataframe
     gab = gab['train'].to_pandas()
 
-    # Filter hate speech (either attacks dignity or calls for violence)
+    # Filter by hate speech
     gab_hate = gab[(gab["hd"] == 1) | (gab["cv"] == 1)].copy()
 
     gab_hate['label'] = 0
     gab_hate = gab_hate.drop(columns=["hd", "cv", "vo"])
 
-
-    # Filter only offensive speech (vulgar but not hateful)
+    # Filter only offensive speech
     gab_offensive = gab[(gab["vo"] == 1) & (gab["hd"] == 0) & (gab["cv"] == 0)].copy()
 
     gab_offensive['label'] = 1
     gab_offensive = gab_offensive.drop(columns=["hd", "cv", "vo"])
     gab_offensive.head()
 
+    # Concat both to be added to full dataset
     gab = pd.concat([gab_hate, gab_offensive])
+
 
     # ========== ALL FRANKSHU LOGIC ===========
     frankshu = load_dataset("thefrankhsu/hate_speech_twitter")
-    # convert to dataframe
     frankshu = frankshu['train'].to_pandas()
 
+    # Extract only hate tweets (label 1)
     frankshu_hate = frankshu[frankshu['label'] == 1].copy()
     frankshu_hate['label'] = 0
 
+    # Extract only normal tweets (label 2)
     frankshu_normal = frankshu[frankshu['label'] == 0].copy()
     frankshu_normal['label'] = 2
 
@@ -65,7 +67,7 @@ def pull_data():
 
     frankshu = frankshu.drop(columns=['categories'])
     frankshu = frankshu.rename(columns={"tweet": "text"})
-    frankshu.info()
+
 
     # ========== MERGE LOGIC ==========
 
@@ -78,7 +80,7 @@ def pull_data():
     return dataset_df
 
 
-def create_splits(dataset_df):
+def create_splits(dataset_df: pd.DataFrame):
     # First split: separate out test set (15%)
     train_data, test_data = train_test_split(
         dataset_df,
@@ -90,7 +92,7 @@ def create_splits(dataset_df):
     # Second split: separate training data into train and validation sets (15% of original = ~17.6% of remaining data)
     train_data, val_data = train_test_split(
         train_data,
-        test_size=0.176,  # This gives us approximately 15% of the original data
+        test_size=0.176,
         random_state=42,
         stratify=train_data['label']
     )
@@ -110,6 +112,7 @@ if __name__ == "__main__":
     print(f"Test set size: {len(test_data)} ({len(test_data)/total:.2%})")
     print(f"Validation set size: {len(val_data)} ({len(val_data)/total:.2%})")
 
+    # Save all to CSVs
     train_data.to_csv("data/train_data.csv", index=False)
     test_data.to_csv("data/test_data.csv", index=False)
     val_data.to_csv("data/val_data.csv", index=False)
